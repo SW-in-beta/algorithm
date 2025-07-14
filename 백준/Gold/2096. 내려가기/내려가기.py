@@ -1,3 +1,6 @@
+import sys
+input = lambda : sys.stdin.readline().rstrip()
+
 N = int(input())
 max_dp = [0] * 3
 min_dp = [0] * 3
