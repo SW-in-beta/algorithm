@@ -1,9 +1,11 @@
-n = int(input())
-d = [0, 0, 1, 1]
-for i in range(4, n+1):
-    ars = [i - 1]
-    if i % 2 == 0: ars.append(i // 2)
-    if i % 3 == 0: ars.append(i // 3)
-    d.append(min(d[a] for a in ars)+1)
+N = int(input())
+res = [0] * (N+1)
+for i in range(2, N+1):
+    cur_res = res[i-1]
+    if i % 2 == 0:
+        cur_res = min(cur_res, res[i // 2])
+    if i % 3 == 0:
+        cur_res = min(cur_res, res[i // 3])
+    res[i] = cur_res + 1
 
-print(d[n])
+print(res[N])
