@@ -7,7 +7,7 @@ for _ in range(int(input())):
     c = seq[0]
     ans = 'YES'
     for s in seq[1:]:
-        if len(s) > len(c) and s[:len(c)-len(s)] == c:
+        if s.startswith(c):
             ans = 'NO'
             break
         c = s
