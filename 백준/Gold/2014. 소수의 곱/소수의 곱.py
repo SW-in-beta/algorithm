@@ -1,19 +1,17 @@
 from heapq import heappush, heappop
-    
-MAX = 2 ** 31
 K, N = map(int, input().split())
 primes = tuple(map(int, input().split()))
 
-heap = [1]
+h = list(primes)
 
-for _ in range(N):
-    item = heappop(heap)
+while True:
+    e = heappop(h)
+    N -= 1
+    if N == 0:
+        break
     for p in primes:
-        val = item*p
-        if val >= MAX:
-            continue
-        heappush(heap, val)
-        if item % p == 0:
+        heappush(h, e * p)
+        if e % p == 0:
             break
-
-print(heap[0])
+    
+print(e)
