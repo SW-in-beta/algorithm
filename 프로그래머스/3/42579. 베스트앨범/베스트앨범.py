@@ -10,14 +10,12 @@
 from collections import defaultdict as dd
 
 def solution(genres, plays):
-    g_cnt = dd(int)
     g_list = dd(list)
     for i, (g, p) in enumerate(zip(genres, plays)):
-        g_cnt[g] += p
         g_list[g].append((p, -i))
     
     play_list = []
-    for _, genre in sorted(((c, g) for g, c in g_cnt.items()), reverse=True):
+    for genre in sorted(set(genres), key=lambda g: sum(p for p, _ in g_list[g]), reverse=True):
         play_list.extend([-i for p, i in sorted(g_list[genre], reverse=True)][:2])
         
     return play_list
