@@ -10,11 +10,8 @@
 def solution(routes):
     cnt = 0
     last = -30001
-    for s, e in sorted(routes):
+    for s, e in sorted(routes, key=lambda r: r[1]):
         if s <= last <= e:
-            continue
-        elif e < last:
-            last = e
             continue
         cnt += 1
         last = e
