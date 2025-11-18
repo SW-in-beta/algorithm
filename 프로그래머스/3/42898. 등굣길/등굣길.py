@@ -22,42 +22,21 @@ dp[r-1][c] + dp[r][c-1]이겠지
 ㅠㅠ 효율적이지 못하다
 반복문으로 해야하나
 """
-# def recursion(r, c, dp):
-#     max_r = len(dp)
-#     max_c = len(dp[0])
-#     if not (0 <= r < max_r and 0 <= c < max_c):
-#         return 0
-#     if dp[r][c]:
-#         return dp[r][c] if dp[r][c] != 'p' else 0
-#     dp[r][c] = recursion(r-1, c, dp) + recursion(r, c-1, dp)
-#     return dp[r][c]
-
-# def solution(m, n, puddles):
-#     dp = [[0] * m for _ in range(n)]
-#     dp[0][0] = 1
-    
-#     for pm, pn in puddles:
-#         dp[pn-1][pm-1] = 'p'
-    
-#     return recursion(n-1, m-1, dp)
-
+def recursion(r, c, dp):
+    max_r = len(dp)
+    max_c = len(dp[0])
+    if not (0 <= r < max_r and 0 <= c < max_c):
+        return 0
+    if dp[r][c]:
+        return dp[r][c] if dp[r][c] != 'p' else 0
+    dp[r][c] = (recursion(r-1, c, dp) + recursion(r, c-1, dp)) % 1000000007
+    return dp[r][c]
 
 def solution(m, n, puddles):
-    INF = 1000000007
     dp = [[0] * m for _ in range(n)]
     dp[0][0] = 1
     
     for pm, pn in puddles:
         dp[pn-1][pm-1] = 'p'
-        
-    for r in range(n):
-        for c in range(m):
-            if dp[r][c] == 'p':
-                continue
-            for nr, nc in ((r+1, c), (r, c+1)):
-                if not (0 <= nr < n and 0 <= nc < m) or dp[nr][nc] == 'p':
-                    continue
-                dp[nr][nc] += dp[r][c]
-                dp[nr][nc] %= INF
     
-    return dp[n-1][m-1]
+    return recursion(n-1, m-1, dp)
