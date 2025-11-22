@@ -35,11 +35,13 @@ def max_time(n, times):
 def solution(n, times):
     l = 0
     r = max_time(n, times)
-    while l < r:
+    answer = 0
+    while l <= r:
         m = (l + r) // 2
         cnt = count(m, times)
         if n <= cnt:
-            r = m
+            answer = m
+            r = m - 1
         else:
             l = m + 1
-    return l
+    return answer
