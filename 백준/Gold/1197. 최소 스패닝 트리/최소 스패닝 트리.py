@@ -1,5 +1,4 @@
 import sys
-from heapq import heappush, heappop
 input = lambda: sys.stdin.readline().rstrip()
 
 V, E = map(int, input().split())
@@ -20,14 +19,17 @@ def union(u, v):
 h = []
 for _ in range(E):
     a, b, c = map(int, input().split())
-    heappush(h, (c, a, b))
+    h.append((c, a, b))
 
+h.sort()
 cost = 0
 cnt = 0
-while h and cnt < V - 1:
-    c, a, b = heappop(h)
+i = 0
+while i < len(h) and cnt < V - 1:
+    c, a, b = h[i]
     if union(a, b):
         cnt += 1
         cost += c    
+    i += 1
 
 print(cost)
