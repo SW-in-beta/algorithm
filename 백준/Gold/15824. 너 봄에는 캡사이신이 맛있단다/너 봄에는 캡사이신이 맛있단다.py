@@ -1,13 +1,11 @@
 N = int(input())
 scoville = sorted(map(int, input().split()))
-
+maximum = 1000000007
+pow = [1] * N
+for i in range(1, N):
+    pow[i] = (pow[i-1] << 1) % maximum
 cnt = 0
-add = 1
-sub = 2 ** (N - 1)
 for i in range(N):
-    cnt += (add - 1) * scoville[i] - (sub - 1) * scoville[i]
-    add <<= 1
-    sub >>= 1
-    cnt %= 1000000007
+    cnt = (cnt + scoville[i] * (pow[i] - pow[N-i-1])) % maximum
         
 print(cnt)
